@@ -1,7 +1,6 @@
 const score = document.querySelector(".score");
 const startScreen = document.querySelector(".startScreen");
 const gameArea = document.querySelector(".gameArea");
-//console.log(gameArea);
 
 //----------->  start screen --------------------------------------------------------------------
 startScreen.addEventListener("click", start);
@@ -17,25 +16,24 @@ let keys = {
   ArrowRight: false,
 };
 
+startScreen.addEventListener("click", start);
 document.addEventListener("keydown", keyDown);
 document.addEventListener("keyup", keyUp);
 
 function keyDown(e) {
   e.preventdefault;
-  keys[e.key] = true; //console.log(e.key); ||   //console.log(keys);
+  keys[e.key] = true;
 }
 
 function keyUp(e) {
   e.preventdefault;
-  keys[e.key] = false; //  console.log(e.key); ||   //console.log(keys);
+  keys[e.key] = false;
 }
 
 //--------------for coullusion function-----------------------------------------------------------
 function isCollide(a, b) {
   //where 'a' reprecent the position of car && 'b' reprecent enemy car
-  //console.log(a, b);
   let aRect = a.getBoundingClientRect();
-  // console.log(aRect);
   let bRect = b.getBoundingClientRect();
 
   return !(
@@ -70,13 +68,10 @@ function endGame() {
 }
 //--- just like lines we have to move the Enemy with same logic -------------------------------------------------
 function moveEnemy(car) {
-  // console.log(car);
   let enemy = document.querySelectorAll(".enemy");
   enemy.forEach(function (item) {
-    // console.log(item);
     //calling the collusion function to stop the game
     if (isCollide(car, item)) {
-      console.log("Boom Hit...!!!");
       endGame();
     }
 
@@ -91,12 +86,11 @@ function moveEnemy(car) {
 
 //-------------------declare GamePlay ()---------------------------------------------------------------
 function gamePlay() {
-  //  console.log("Hey I am clicked.");
   let car = document.querySelector(".car");
 
   //to know the position of the road------------- refrence:https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
   let road = gameArea.getBoundingClientRect();
-  //console.log(road);//bottom: 721.6000366210938
+  //bottom: 721.6000366210938
   //  height: 721.6000366210938
   //  left: 330|| right: 730|| top: 0|| width: 400|| x: 330| y: 0
   if (player.start) {
@@ -155,8 +149,8 @@ function start() {
   //car.innerText = " HEY CAR";
   gameArea.appendChild(car);
 
-  player.x = car.offsetLeft; // console.log( "top position" + car.offsetTop); //top position532
-  player.y = car.offsetTop; // console.log( "left position" + car.offsetLeft);//left position50
+  player.x = car.offsetLeft;
+  player.y = car.offsetTop;
 
   for (i = 0; i < 3; i++) {
     //to create the line between the road
@@ -169,16 +163,3 @@ function start() {
     gameArea.appendChild(enemyCar);
   }
 }
-
-// //--------------//random color function----------------------------------
-// //to get the transparent car background change using #ffffff type
-// function randomColor() {
-//   function c() {
-//     let hex = Math.floor(Map.random() * 256).toString(16);
-//     return ("0" + String(hex)).substr(-2); //took this from website to check if this works
-//   }
-//   console.log(("0" + String(hex)).substr(-2));
-//   return "#" + c() + c() + c();
-// }
-
-//check care position (x,y)
